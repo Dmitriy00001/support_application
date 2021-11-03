@@ -2,17 +2,18 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
-from .models import Ticket, Message
-from .serializers import TicketCreateSerializers, TicketListSerializers, MessageCreateSerializers, \
+from api_support_chat.models import Ticket, Message
+from api_support_chat.serializers import TicketCreateSerializers, TicketListSerializers, MessageCreateSerializers, \
     UserTicketListSerializers, TicketStatusUpdateViewSerializers, SupportTicketListSerializers
 
 
-class TicketCreateView(generics.CreateAPIView):
+class TicketCreateView(ModelViewSet):
     """
             1)Creating a ticket.
             Access:Only authorized user.
     """
     serializer_class = TicketCreateSerializers
+    queryset = Ticket.objects.all()
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -20,13 +21,14 @@ class TicketCreateView(generics.CreateAPIView):
         serializer.save()
 
 
-class MessageCreateView(generics.CreateAPIView):
+class MessageCreateView(ModelViewSet):
     """
             1)Create a message.
             Access:Authorized user.
             Access:Support manager.
     """
     serializer_class = MessageCreateSerializers
+    queryset = Message.objects.all()
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -86,7 +88,7 @@ class TicketStatusUpdateView(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = TicketStatusUpdateViewSerializers
     queryset = Ticket.objects.all()
-    permission_classes = [IsAdminUser,]
+    permission_classes = [IsAdminUser, ]
 
 
 
