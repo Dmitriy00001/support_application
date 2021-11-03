@@ -9,8 +9,8 @@ from .serializers import TicketCreateSerializers, TicketListSerializers, Message
 
 class TicketCreateView(generics.CreateAPIView):
     """
-            1)Создание тикета.
-            2)Имеет доступ только авторизованный пользователь.
+            1)Creating a ticket.
+            Access:Only authorized user.
     """
     serializer_class = TicketCreateSerializers
     permission_classes = [IsAuthenticated]
@@ -22,9 +22,9 @@ class TicketCreateView(generics.CreateAPIView):
 
 class MessageCreateView(generics.CreateAPIView):
     """
-            1)Создание сообщения.
-            2)Имеет доступ авторизованный пользователь.
-            3)Имеет доступ Support.
+            1)Create a message.
+            Access:Authorized user.
+            Access:Support manager.
     """
     serializer_class = MessageCreateSerializers
     permission_classes = [IsAuthenticated]
@@ -36,9 +36,9 @@ class MessageCreateView(generics.CreateAPIView):
 
 class TicketListView(ModelViewSet):
     """
-            1)Получение списка всех созданных тикетов.
-            2)Имеет возможность фильтрации по [названию тикета, имени создателя тикета, cтатусу и id].
-            3)Имеет доступ только Support.
+            1)Get all created tickets.
+            2)Has a filter by [ticket name, ticket creator name, status and id].
+            Access:Support manager.
 
     """
     permission_classes = [IsAdminUser, ]
@@ -50,9 +50,9 @@ class TicketListView(ModelViewSet):
 
 class SupportTicketListView(ModelViewSet):
     """
-            1)Получение списка всех сообщений.
-            2)Имеет возможность получения всех сообщений для конкретного тикета.
-            3)Имеет доступ только Support.
+            1)Get all created messages.
+            2)Get all messages for a specific ticket.
+            Access:Support manager.
     """
     permission_classes = [IsAdminUser, ]
     serializer_class = UserTicketListSerializers
@@ -63,10 +63,9 @@ class SupportTicketListView(ModelViewSet):
 
 class UserTicketListView(ModelViewSet):
     """
-            1)Получение списка всех сообщений пользователем,
-            относящихся к созданным им тикетов.
-            3)Имеет возможность выбора конкретного тикета.
-            2)Имеет доступ только авторизованный пользователь.
+            1)Receiving all messages,related to the user.
+            2)Selection of a specific ticket.
+            Access:Only authorized user.
     """
     permission_classes = [IsAuthenticated]
     serializer_class = SupportTicketListSerializers
@@ -81,9 +80,9 @@ class UserTicketListView(ModelViewSet):
 
 class TicketStatusUpdateView(generics.RetrieveUpdateDestroyAPIView):
     """
-            1)Изменение статуса тикета.
-            2)Имеет возможность выбора конкретного тикета.
-            3)Имеет доступ только Support.
+            1)Change ticket status.
+            2)Selection of a specific ticket.
+            Access:Only support manager.
     """
     serializer_class = TicketStatusUpdateViewSerializers
     queryset = Ticket.objects.all()

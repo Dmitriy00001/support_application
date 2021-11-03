@@ -1,5 +1,6 @@
 from celery import shared_task
-from api_support.api_support_chat.models import Message
+from api_support_chat.models import Message
+
 
 @shared_task()
 def get_all_message():
