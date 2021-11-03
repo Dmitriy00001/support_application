@@ -1,5 +1,5 @@
-from rest_framework import serializers, request
-from .models import Ticket, Message
+from rest_framework import serializers
+from api_support_chat.models import Ticket, Message
 
 
 class TicketCreateSerializers(serializers.ModelSerializer):

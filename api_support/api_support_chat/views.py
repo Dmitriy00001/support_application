@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
-from .models import Ticket, User, Message
+from .models import Ticket, Message
 from .serializers import TicketCreateSerializers, TicketListSerializers, MessageCreateSerializers, \
     UserTicketListSerializers, TicketStatusUpdateViewSerializers, SupportTicketListSerializers
 

@@ -1,7 +1,12 @@
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 
-from .views import TicketCreateView, TicketListView, MessageCreateView, UserTicketListView, TicketStatusUpdateView, \
+from api_support_chat.views import \
+    TicketCreateView,\
+    TicketListView,\
+    MessageCreateView,\
+    UserTicketListView,\
+    TicketStatusUpdateView,\
     SupportTicketListView
 
 router = SimpleRouter()
