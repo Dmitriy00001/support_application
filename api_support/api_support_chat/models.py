@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from api_support_chat.choices import STATUS_CHOICES
 
 
 class Ticket(models.Model):
@@ -8,12 +9,7 @@ class Ticket(models.Model):
                                      null=True, related_name='related_creator')
     support_manager_name = models.ForeignKey(User, verbose_name='Support manager', on_delete=models.CASCADE,
                                              related_name='related_support', default=User.objects.get(is_staff=True))
-    TICKET_CHOICES = [
-        (1, 'Active'),
-        (2, 'Inactive'),
-        (3, 'Frozen'),
-    ]
-    status_ticket = models.IntegerField(max_length=1, choices=TICKET_CHOICES, default=1, verbose_name='Ticket status')
+    status_ticket = models.IntegerField(max_length=1, choices=STATUS_CHOICES, default=1, verbose_name='Ticket status')
 
     def __str__(self):
         return f"""ID:{self.id} Ticket name: {self.ticket_name} Ticket creator: {self.creator_name}"""
